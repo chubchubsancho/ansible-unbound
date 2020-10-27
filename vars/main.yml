@@ -1,0 +1,4 @@
+---
+# variable use for getting root hits
+unbound_root_hints_url: https://www.internic.net/domain/named.cache
+unbound_root_hints_dir: /etc/unbound/root.hints

@@ -1,0 +1,52 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: docker
+
+lint: |
+  set -e
+  yamllint -c ./molecule/resources/rules/yamllint.yaml .
+  ansible-lint .
+  flake8
+
+platforms:
+  - name: "instance"
+    image: "$image:$version"
+    command: /sbin/init
+    privileged: true
+    env:
+      container: docker
+    groups:
+      - "default"
+
+provisioner:
+  log: true
+  name: ansible
+  inventory:
+    links:
+      group_vars: group_vars/
+      host_vars: host_vars/
+  playbooks:
+    converge: ../resources/playbook.yml
+  options:
+    vvv: true
+    diff: true
+
+scenario:
+  name: default
+  test_sequence:
+    - destroy
+    - dependency
+    - syntax
+    - create
+    - prepare
+    - converge
+    - idempotence
+    # - side_effect
+    # - verify
+    - destroy
+
+verifier:
+  name: testinfra

@@ -1,0 +1,24 @@
+server:
+  private-domain: "{{ domain.name }}."
+  domain-insecure: "{{ domain.name }}."
+
+  {% if domain.access_control -%}
+  {% for access in domain.access_control -%}
+  {% for type, access_cidr in access.items() -%}
+  {% for  cidr in access_cidr -%}
+  access-control: {{ cidr }} {{ type }}
+  {% endfor -%}
+  {% endfor -%}
+  {% endfor -%}
+  {% endif %}
+
+  local-zone: "{{ domain.name }}" {{ domain.mode }}
+
+  {% if domain.local_data -%}
+  {% for record in domain.local_data -%}
+  local-data: "{{ record.name }}.{{ domain.name }}. {{ record.ttl }} IN {{ record.type }} {{ record.ip }}"
+  {% if record.ptr | default(false) -%}
+  local-data-ptr: "{{ record.ip }} {{ record.name }}.{{ domain.name }}."
+  {% endif -%}
+  {% endfor -%}
+  {% endif -%}

@@ -1,0 +1,30 @@
+---
+- name: include os family specific vars
+  include_vars: "{{ ansible_os_family | lower }}.yml"
+  tags:
+    - unbound
+    - vars
+
+- name: install unbound from repository
+  include_tasks: "{{ ansible_os_family  | lower }}-install.yml"
+  tags:
+    - unbound
+    - install
+
+- name: enable unbound service
+  include_tasks: "enable.yml"
+  tags:
+    - unbound
+    - service
+
+- name: get root.hints and add autoupdate
+  include_tasks: root-hints.yml
+  tags:
+    - unbound
+    - root-hints
+
+- name: configure unbound
+  include_tasks: configure.yml
+  tags:
+    - unbound
+    - configure

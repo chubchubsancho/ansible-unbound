@@ -1,0 +1,35 @@
+---
+- name: create unbound log directory
+  file:
+    path: "{{ unbound_log_dir }}"
+    state: directory
+  tags:
+    - unbound
+    - configure
+
+- name: set default configuration
+  template:
+    src: "etc/unbound/global.conf.j2"
+    dest: "{{ unbound_conf_dir }}/global.conf"
+  notify: restart unbound
+  tags:
+    - unbound
+    - configure
+
+- name: configure local-data
+  template:
+    src: "etc/unbound/local-data.conf.j2"
+    dest: "{{ unbound_conf_dir }}/{{ domain.name }}.conf"
+  loop: >-
+    {{
+    (
+      unbound_domain
+    ) | flatten
+    }}
+  loop_control:
+    loop_var: domain
+    label: "{{ domain.name }}"
+  notify: restart unbound
+  tags:
+    - unbound
+    - domain

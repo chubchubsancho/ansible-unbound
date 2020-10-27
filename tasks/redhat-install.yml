@@ -1,0 +1,9 @@
+---
+- name: install unbound on redhat family OS
+  yum:
+    update_cache: yes
+    name: unbound
+    state: present
+  tags:
+    - unbound
+    - package

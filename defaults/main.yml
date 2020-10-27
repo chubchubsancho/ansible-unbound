@@ -1,0 +1,29 @@
+---
+unbound_log_dir: "/var/log/unbound"
+unbound_verbosity: "1"
+unbound_log_time_ascii: "yes"
+unbound_log_queries: "yes"
+unbound_log_relpies: "yes"
+unbound_log_tag_queryreply: "yes"
+unbound_local_actions: "yes"
+unbound_servfail: "yes"
+
+unbound_interface: "127.0.0.1"
+unbound_port: 5053
+
+unbound_do_tcp: "yes"
+unbound_do_udp: "yes"
+unbound_do_ip4: "yes"
+unbound_do_ip6: "yes"
+
+unbound_harden_dnssec_stripped: "yes"
+
+unbound_prefetch: "yes"
+
+unbound_private_addresses:
+  - 192.168.0.0/16
+  - 169.254.0.0/16
+  - 172.16.0.0/12
+  - 10.0.0.0/8
+  - "fd00::/8"
+  - "fe80::/10"

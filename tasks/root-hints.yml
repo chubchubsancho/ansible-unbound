@@ -1,0 +1,36 @@
+---
+- name: download root hints
+  get_url:
+    url: "{{ unbound_root_hints_url }}"
+    dest: "{{ unbound_root_hints_dir }}"
+    owner: root
+    group: root
+    mode: 644
+  notify: restart unbound
+  tags:
+    - unbound
+    - root-hints
+
+- name: create roothints service for autoupdate
+  template:
+    src: etc/systemd/system/roothints.service.j2
+    dest: /etc/systemd/system/roothints.service
+  tags:
+    - unbound
+    - root-hints
+
+- name: create roothints timer for autoupdate
+  copy:
+    src: "etc/systemd/system/roothints.timer"
+    dest: "/etc/systemd/system/roothints.timer"
+  tags:
+    - unbound
+    - root-hints
+
+- name: enable roothints timer
+  systemd:
+    name: roothints.timer
+    enabled: true
+  tags:
+    - unbound
+    - root-hints

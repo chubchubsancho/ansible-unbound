@@ -1,0 +1,55 @@
+server:
+  ###
+  # logging
+  ###
+
+  logfile: {{ unbound_log_dir }}/unbound.log
+  verbosity: {{ unbound_verbosity }}
+  log-time-ascii: {{ unbound_log_time_ascii }}
+  log-queries: {{ unbound_log_queries }}
+  log-replies: {{ unbound_log_relpies }}
+  log-tag-queryreply: {{ unbound_log_tag_queryreply }}
+  log-local-actions: {{ unbound_local_actions }}
+  log-servfail: {{ unbound_servfail }}
+
+  ###
+  # listening
+  ###
+
+  interface: {{ unbound_interface }}
+  port: {{ unbound_port }}
+
+  ###
+  # protocol
+  ###
+
+  do-tcp: {{ unbound_do_tcp }}
+  do-udp: {{ unbound_do_udp }}
+  do-ip4: {{ unbound_do_ip4 }}
+  do-ip6: {{ unbound_do_ip6 }}
+
+  ###
+  # root-hints
+  ###
+
+  root-hints: {{ unbound_root_hints_dir }}
+
+  harden-dnssec-stripped: {{ unbound_harden_dnssec_stripped }}
+
+  use-caps-for-id: no
+
+  edns-buffer-size: 1232
+
+  ###
+  # cache
+  ###
+
+  prefetch: {{ unbound_prefetch }}
+
+  num-threads: 1
+
+  so-rcvbuf: 1m
+
+{% for private_address in unbound_private_addresses %}
+  private-address: {{ private_address }}
+{% endfor %}

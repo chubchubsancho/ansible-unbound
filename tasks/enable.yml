@@ -1,0 +1,8 @@
+---
+- name: enable unbound service from systemctl
+  systemd:
+    name: unbound
+    enabled: true
+  tags:
+    - unbound
+    - service

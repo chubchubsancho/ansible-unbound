@@ -1,0 +1,38 @@
+---
+unbound_domain:
+  - name: foo.bar
+    mode: static
+    access_control:
+      - allow:
+          - 192.168.0.0/24
+          - 10.0.0.0/8
+      - deny:
+          - 192.168.1.0/24
+    local_data:
+      - name: first
+        type: A
+        ttl: 30
+        ip: 192.168.0.1
+        ptr: true
+      - name: second
+        type: A
+        ttl: 30
+        ip: 192.168.0.2
+  - name: bar.foo
+    mode: static
+    access_control:
+      - allow:
+          - 192.168.0.0/24
+      - deny:
+          - 192.168.1.0/24
+          - 10.0.0.0/8
+    local_data:
+      - name: first
+        type: A
+        ttl: 30
+        ip: 192.168.0.3
+      - name: second
+        type: A
+        ttl: 30
+        ip: 192.168.0.4
+        ptr: true
