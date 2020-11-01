@@ -12,7 +12,7 @@ server:
   {% endfor -%}
   {% endif %}
 
-  local-zone: "{{ domain.name }}" {{ domain.mode }}
+  local-zone: "{{ domain.name }}." {{ domain.mode }}
 
   {% if domain.local_data -%}
   {% for record in domain.local_data -%}
