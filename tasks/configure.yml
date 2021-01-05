@@ -3,6 +3,9 @@
   file:
     path: "{{ unbound_log_dir }}"
     state: directory
+    owner: unbound
+    group: unbound
+    mode: 0750
   tags:
     - unbound
     - configure
