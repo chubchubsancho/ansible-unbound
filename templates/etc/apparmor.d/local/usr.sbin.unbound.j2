@@ -1,0 +1,4 @@
+{{ ansible_managed | comment }}
+# Site-specific additions and overrides for usr.sbin.unbound.
+# For more details, please see /etc/apparmor.d/local/README.
+{{ unbound_log_dir }}/unbound.log rw,

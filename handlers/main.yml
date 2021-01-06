@@ -3,3 +3,8 @@
   systemd:
     name: unbound
     state: restarted
+
+- name: restart apparmor
+  systemd:
+    name: apparmor
+    state: restarted

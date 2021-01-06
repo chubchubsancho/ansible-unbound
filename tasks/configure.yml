@@ -10,6 +10,15 @@
     - unbound
     - configure
 
+- name: configure apparmor for unbound
+  template:
+    src: "etc/apparmor.d/local/usr.sbin.unbound.j2"
+    dest: "/etc/apparmor.d/local/usr.sbin.unbound"
+  notify: restart apparmor
+  tags:
+    - unbound
+    - configure
+
 - name: set default configuration
   template:
     src: "etc/unbound/global.conf.j2"

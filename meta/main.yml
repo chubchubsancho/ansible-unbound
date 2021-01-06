@@ -31,7 +31,7 @@ galaxy_info:
     - name: Debian
       versions:
         - stretch
-        - bionic
+        - buster
     - name: Ubuntu
       versions:
         - focal
